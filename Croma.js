@@ -32,7 +32,7 @@ async function scrapeCromaProduct(searchTerm) {
     const title = $(".product-title a").text().trim() || " ";
 
     console.log(title);
-    
+
     return title; // Return scraped data to use it later
   } catch (error) {
     console.error("Error:", error.message);

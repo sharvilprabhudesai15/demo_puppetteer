@@ -10,13 +10,13 @@
     <p>Click the button below to scrape Croma products.</p>
     
     <!-- Button to trigger the scraping process -->
-    <button onclick="scrapeCromaProduct()">Scrape Products</button>
+    <button onclick="scrapeCromaProductWrapper()">Scrape Products</button>
 
     <!-- Display area for the scraped title -->
     <div id="scrapeResult"></div>
 
     <script>
-        async function scrapeCromaProduct() {
+        async function scrapeCromaProductWrapper() {
             try {
                 // Make a fetch request to your server-side endpoint
                 const response = await fetch('/scrape', {
