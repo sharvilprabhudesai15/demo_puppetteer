@@ -3,18 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Run Function Example</title>
-    <!-- Include your external JavaScript file -->
-    <script src="croma.js"></script>
+    <title>Run Croma Product Scraping</title>
 </head>
 <body>
-    <h1>Run Function Example</h1>
-    <p>Click the button below to run a JavaScript function.</p>
+    <h1>Croma Product Scraping</h1>
+    <p>Click the button below to scrape Croma products.</p>
     
-    <!-- Button to trigger the JavaScript function -->
-    <button onclick="scrapeCromaProduct('samsung s24')">Run Function</button>
+    <!-- Button to trigger the scraping process -->
+    <button onclick="scrapeCroma()">Scrape Products</button>
 
-    <!-- Optionally, you can include a div to display the function result -->
-    <div id="result"></div>
+    <!-- Display area for the scraped title -->
+    <div id="scrapeResult"></div>
+
+    <script>
+        async function scrapeCroma() {
+            try {
+                // Make a fetch request to your server-side endpoint
+                const response = await fetch('/scrape', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ searchTerm: 'samsung s24' }) // Replace with your desired search term
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                document.getElementById('scrapeResult').innerText = data.title; // Display the scraped title
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
+        }
+    </script>
 </body>
 </html>
