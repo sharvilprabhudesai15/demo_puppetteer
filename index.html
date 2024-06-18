@@ -1,31 +1,20 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Croma Product Scraper</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Function Example</title>
+    <!-- Include your external JavaScript file -->
+    <script src="script.js"></script>
 </head>
 <body>
-  <h1>Croma Product Scraper</h1>
-  
-  <button id="scrapeButton">Scrape Product</button>
-  
-  <script type="module">
-    import { scrapeCromaProduct } from './croma.js';
+    <h1>Run Function Example</h1>
+    <p>Click the button below to run a JavaScript function.</p>
+    
+    <!-- Button to trigger the JavaScript function -->
+    <button onclick="scrapeCromaProduct('samsung s24')">Run Function</button>
 
-    const scrapeButton = document.getElementById('scrapeButton');
-    scrapeButton.addEventListener('click', async () => {
-      const searchTerm = "samsung s24"; // Define your search term here
-      try {
-        const title = await scrapeCromaProduct(searchTerm);
-        alert(`Scraped Product Title: ${title}`);
-      } catch (error) {
-        console.error("Error running scraper:", error);
-        alert("Error occurred. Check console for details.");
-      }
-    });
-  </script>
+    <!-- Optionally, you can include a div to display the function result -->
+    <div id="result"></div>
 </body>
 </html>
