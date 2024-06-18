@@ -10,21 +10,22 @@
 <body>
   <h1>Croma Product Scraper</h1>
   
-  <button onclick="runScrape()">Scrape Product</button>
+  <button id="scrapeButton">Scrape Product</button>
   
-  <script src="croma.js"></script>
-  <script>
-    async function runScrape() {
+  <script type="module">
+    import { scrapeCromaProduct } from './croma.js';
+
+    const scrapeButton = document.getElementById('scrapeButton');
+    scrapeButton.addEventListener('click', async () => {
       const searchTerm = "samsung s24"; // Define your search term here
       try {
-        const scrapeCromaProduct = require('./croma'); // Import the function from croma.js
         const title = await scrapeCromaProduct(searchTerm);
         alert(`Scraped Product Title: ${title}`);
       } catch (error) {
         console.error("Error running scraper:", error);
         alert("Error occurred. Check console for details.");
       }
-    }
+    });
   </script>
 </body>
 </html>
