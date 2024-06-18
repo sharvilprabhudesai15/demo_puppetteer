@@ -1,13 +1,12 @@
+// server.js
+
 const express = require('express');
-const cors = require('cors');
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const fs = require('fs').promises;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-app.use(cors()); // Enable CORS for all routes
 
 async function scrapeCromaProduct(searchTerm) {
     const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
@@ -29,26 +28,26 @@ async function scrapeCromaProduct(searchTerm) {
 
         const title = $(".product-title a").text().trim() || " ";
 
-        console.log(title); // Log the title to the server console
+        console.log(title);
 
-        return "Success";
+        return title; // Return the scraped title
     } catch (error) {
         console.error("Error:", error.message);
-        return "Error: " + error.message;
+        throw error; // Rethrow the error to handle it in the calling function
     } finally {
         await browser.close();
     }
 }
 
 app.get('/api/scrape', async (req, res) => {
+    const searchTerm = req.query.searchTerm || "samsung s24"; // Default search term
+
     try {
-        const result = await scrapeCromaProduct("samsung s24");
-        res.json({ result });
+        const title = await scrapeCromaProduct(searchTerm);
+        res.json({ title });
     } catch (error) {
         res.status(500).json({ error: 'Error scraping data.' });
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-});
+module.exports = app; // Export the Express app
