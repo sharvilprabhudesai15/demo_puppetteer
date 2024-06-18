@@ -1,38 +1,28 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Scraper</title>
+  <title>Croma Product Scraper</title>
 </head>
 <body>
-  <h1>Product Scraper</h1>
+  <h1>Croma Product Scraper</h1>
   
-  <button onclick="scrapeCromaProduct('samsung s24')">Scrape Product</button>
+  <button onclick="runScrape()">Scrape Product</button>
   
-  <div id="result"></div>
-  
+  <script src="croma.js"></script>
   <script>
-    async function scrapeCromaProduct(searchTerm) {
-      const cromaUrl =
-        'https://www.croma.com/searchB?q=' +
-        searchTerm.replace(/ /g, "%20") +
-        "%3Arelevance&text=" +
-        searchTerm.replace(/ /g, "%20");
-
+    async function runScrape() {
+      const searchTerm = "samsung s24"; // Define your search term here
       try {
-        const response = await fetch(cromaUrl);
-        const htmlContent = await response.text();
-        
-        const $ = cheerio.load(htmlContent);
-        
-        const title = $(".product-title a").first().text().trim() || "Product not found";
-        
-        // Display the result in the browser
-        document.getElementById("result").innerText = title;
+        const scrapeCromaProduct = require('./croma'); // Import the function from croma.js
+        const title = await scrapeCromaProduct(searchTerm);
+        alert(`Scraped Product Title: ${title}`);
       } catch (error) {
-        console.error("Error:", error.message);
-        document.getElementById("result").innerText = "Error fetching data";
+        console.error("Error running scraper:", error);
+        alert("Error occurred. Check console for details.");
       }
     }
   </script>
